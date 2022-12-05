@@ -5,8 +5,49 @@
       <router-link to="/about">About</router-link>
     </div>
     <router-view />
+
+<!--    <input type="text" v-model="message">-->
+<!--    <button @click="sendEvent">Ping</button>-->
   </div>
 </template>
+
+<script>
+
+import SocketioService from './services/socketio.service.js';
+
+export default {
+  name: "App",
+  components: {},
+  data() {
+    return {
+      socket: null,
+      message: null,
+    }
+  },
+  sockets: {
+    connect: function () {
+      console.log("socket starts");
+    },
+    custumEmit: function (data) {
+      console.log(data);
+    }
+  },
+  created() {
+    // this.socket = SocketioService.setupSocketConnection();
+    // this.socket.on("messageToClient", (mes) => {
+    //   console.log(mes);
+    // });
+    // console.log('lvmdflmvfl');
+  },
+  methods: {
+    sendEvent() {
+      this.$socket.emit("messageToServer", this.message);
+      this.message = '';
+
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 #app {

@@ -4,8 +4,17 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
+  state: {
+    messages: ['super'],
+  },
   mutations: {},
-  actions: {},
+  actions: {
+    SOCKET_messageToClient(ctx, data) {
+      ctx.state.messages.unshift(data);
+    },
+  },
+  getters: {
+    messages : state => state.messages,
+  },
   modules: {},
 });

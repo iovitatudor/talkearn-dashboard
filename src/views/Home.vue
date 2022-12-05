@@ -1,18 +1,27 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+
+    <AppCall/>
+
+<!--    <IncommingCall></IncommingCall>-->
+<!--    <ul>-->
+<!--      <li v-for="(message, key) in messages" v-bind:key="key">-->
+<!--        {{ message }}-->
+<!--      </li>-->
+<!--    </ul>-->
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import { mapGetters } from 'vuex';
+import IncommingCall from '@/components/incommingCall'
+import AppCall from '@/components/calls/AppCall';
 
 export default {
   name: "Home",
-  components: {
-    HelloWorld,
-  },
+  components: {IncommingCall, AppCall},
+  computed: mapGetters({
+    messages: 'messages',
+  }),
 };
 </script>
