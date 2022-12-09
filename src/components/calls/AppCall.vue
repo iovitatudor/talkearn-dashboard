@@ -11,7 +11,7 @@
       </v-btn>
     </div>
 
-    <div class="container">
+    <div class="call-container">
       <out-going-call :myId='myId' :recipientId='recipientId'/>
       <in-coming-call :myId='myId' :recipientId='recipientId'/>
       <video-call :myId='myId' :recipientId='recipientId'/>
@@ -42,7 +42,6 @@ export default {
     }
   },
   created() {
-    console.log(process.env);
     this.myId = this.$route.query.myId;
     this.recipientId = this.$route.query.recipientId;
 
@@ -60,7 +59,6 @@ export default {
         senderId: this.myId,
         recipientId: this.recipientId,
       };
-
       if (!this.callProcess) {
         this.$socket.emit('initCall', JSON.stringify(data));
       }
@@ -69,12 +67,12 @@ export default {
     startCall() {
       this.callProcess = true;
       setTimeout(() => {
-        this.$el.querySelector('.container').classList.add('container-increased');
+        this.$el.querySelector('.call-container').classList.add('container-increased');
       }, 10);
     },
 
     endCall() {
-      this.$el.querySelector('.container').classList.remove('container-increased');
+      this.$el.querySelector('.call-container').classList.remove('container-increased');
       this.callProcess = false;
     }
   }
@@ -102,7 +100,7 @@ $blue: #5f4bdb;
 }
 
 .call-app {
-  .container {
+  .call-container {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -288,6 +286,21 @@ $blue: #5f4bdb;
     position: absolute;
     right: 0;
 
+  }
+
+  @keyframes play {
+    0% {
+      transform: scale(1);
+    }
+    15% {
+      box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.4);
+    }
+    25% {
+      box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.4), 0 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+    25% {
+      box-shadow: 0 0 0 15px rgba(255, 255, 255, 0.4), 0 0 0 30px rgba(255, 255, 255, 0.2);
+    }
   }
 
   @media screen and (max-width: 600px) {
