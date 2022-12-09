@@ -14,7 +14,7 @@ const options = {};
 Vue.use(
   new VueSocketIO({
     debug: true,
-    connection: io("http://localhost:5000", options),
+    connection: io(process.env.VUE_APP_BACKEND_URL, options),
     vuex: {
       store,
       actionPrefix: "SOCKET_",

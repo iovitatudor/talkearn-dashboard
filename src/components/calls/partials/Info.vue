@@ -21,7 +21,3 @@ export default {
   props: ['room', 'sender', 'recipient'],
 }
 </script>
-
-<style scoped>
-
-</style>

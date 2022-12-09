@@ -5,12 +5,14 @@
       <div class="head">
         <div class="call-animation">
           <img
-              src="https://back.talkearn.app/images/products/og/avataaars(1)182af3fbc793dc1fd5b23cad33ffa36053391fe0avataaars(1).png">
+              src="https://back.talkearn.app/images/products/og/avataaars(1)182af3fbc793dc1fd5b23cad33ffa36053391fe0avataaars(1).png"
+              alt="">
         </div>
       </div>
       <div class="details">Expert is calling</div>
       <ul class="actions">
         <li class="cancel-calling-btn">
+
           <v-btn
               class="mx-2"
               fab dark color="#2ECC71"
@@ -26,6 +28,7 @@
           >
             <v-icon dark>mdi-phone-hangup</v-icon>
           </v-btn>
+
         </li>
       </ul>
     </div>
@@ -75,14 +78,14 @@ export default {
       this.playSound();
 
       setTimeout(() => {
-        this.$el.querySelector(".ringing").classList.remove('-fadeout');
+        this.$el.querySelector('.ringing').classList.remove('-fadeout');
         this.$el.querySelector('.ringing').classList.add('-ringing');
       }, 600);
 
       this.connectionTime = setTimeout(() => {
-        this.testRefuse();
+        this.refuse();
         this.busySound.play()
-      }, 15200)
+      }, 20000)
     },
 
     playSound() {
@@ -119,7 +122,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-
-</style>
