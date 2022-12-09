@@ -8,21 +8,14 @@
               src="https://back.talkearn.app/images/products/og/avataaars(1)182af3fbc793dc1fd5b23cad33ffa36053391fe0avataaars(1).png">
         </div>
       </div>
-      <div class="details">Expert is calling</div>
+
+      <div class="details">Calling to Expert...</div>
       <ul class="actions">
         <li class="cancel-calling-btn">
           <v-btn
               class="mx-2"
-              fab dark color="#2ECC71"
-              @click="accept"
-          >
-            <v-icon dark>mdi-phone-in-talk</v-icon>
-          </v-btn>
-
-          <v-btn
-              class="mx-2"
               fab dark color="#E55854"
-              @click="refuse"
+              @click="cancelCall"
           >
             <v-icon dark>mdi-phone-hangup</v-icon>
           </v-btn>
@@ -35,33 +28,32 @@
 
 <script>
 
+import beepSound from '@/assets/beepSound.mp3';
 import busySound from '@/assets/busySound.mp3';
-import callSound from '@/assets/callSound.mp3';
 
 export default {
-  name: "InComingCall",
+  name: "OutGoingCall",
   props: ['myId', 'recipientId'],
   data() {
     return {
       isCalling: false,
-      callSound: {},
+      sound: {},
       busySound: {},
       soundPlay: null,
       connectionTime: null,
     }
   },
   mounted() {
-    this.callSound = new Audio(callSound);
+    this.beepSound = new Audio(beepSound);
     this.busySound = new Audio(busySound);
   },
   created() {
-    this.sockets.subscribe(`inComingCall-${this.myId}`, (data) => {
-      this.setInComingCall();
+    this.sockets.subscribe(`outComingCall-${this.myId}`, (data) => {
+      this.setOutGoingCall();
     });
 
     this.sockets.subscribe(`declineCall-${this.myId}`, (data) => {
-      this.stopSound();
-      this.endCall();
+      this.refuse();
     });
 
     this.sockets.subscribe(`startCall-${this.myId}`, (data) => {
@@ -70,39 +62,28 @@ export default {
     });
   },
   methods: {
-    setInComingCall() {
+    setOutGoingCall() {
       this.isCalling = true;
       this.playSound();
 
       setTimeout(() => {
         this.$el.querySelector(".ringing").classList.remove('-fadeout');
-        this.$el.querySelector('.ringing').classList.add('-ringing');
       }, 600);
 
       this.connectionTime = setTimeout(() => {
-        this.testRefuse();
+        this.cancelCall();
         this.busySound.play()
-      }, 15200)
-    },
-
-    playSound() {
-      this.callSound.play()
-      this.soundPlay = setInterval(() => {
-        this.callSound.play()
-      }, 2900);
-    },
-
-    stopSound() {
-      clearInterval(this.soundPlay);
-      this.callSound.pause();
-      this.callSound.currentTime = 0;
-    },
-
-    accept() {
-      this.$socket.emit('startCall', JSON.stringify({senderId: this.myId, recipientId: this.recipientId}));
+      }, 75200)
     },
 
     refuse() {
+      this.isCalling = false;
+      this.stopSound();
+
+      clearTimeout(this.connectionTime);
+    },
+
+    cancelCall() {
       this.$socket.emit('declineCall', JSON.stringify({senderId: this.myId, recipientId: this.recipientId}));
     },
 
@@ -111,10 +92,17 @@ export default {
       this.isCalling = false;
     },
 
-    endCall() {
-      this.isCalling = false;
-      this.stopSound();
-      clearTimeout(this.connectionTime);
+    playSound() {
+      this.beepSound.play()
+      this.soundPlay = setInterval(() => {
+        this.beepSound.play()
+      }, 2900);
+    },
+
+    stopSound() {
+      clearInterval(this.soundPlay);
+      this.beepSound.pause();
+      this.beepSound.currentTime = 0;
     },
   }
 }

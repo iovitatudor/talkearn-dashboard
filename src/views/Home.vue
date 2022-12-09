@@ -14,7 +14,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import IncommingCall from '@/components/incommingCall'
+import IncommingCall from '@/components/incommingCall_'
 import AppCall from '@/components/calls/AppCall';
 
 export default {
