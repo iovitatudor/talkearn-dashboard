@@ -110,6 +110,7 @@ export default {
     },
 
     startCall() {
+      this.stopSound();
       clearTimeout(this.connectionTime);
       this.isCalling = false;
     },
