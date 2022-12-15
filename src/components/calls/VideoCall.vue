@@ -75,6 +75,7 @@ export default {
     async startCall() {
       this.inCall = true;
       this.$el.querySelector(".speaking").classList.remove('flip-back');
+      this.$el.querySelector(".speaking").classList.remove('-drop');
 
       await this.getToken();
       await this.connectToRoom();

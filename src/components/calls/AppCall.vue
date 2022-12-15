@@ -42,8 +42,14 @@ export default {
     }
   },
   created() {
-    this.myId = this.$route.query.myId;
-    this.recipientId = this.$route.query.recipientId;
+    this.myId = '2wZ*h5C5h$7i';
+    // this.recipientId = this.$route.query.recipientId;
+
+    this.sockets.subscribe(`inComingCall-${this.myId}`, (data) => {
+      const dataObject = JSON.parse(data);
+      this.recipientId = dataObject.senderId;
+      console.log(dataObject);
+    });
 
     this.sockets.subscribe(`startCall-${this.myId}`, (data) => {
       this.startCall();
