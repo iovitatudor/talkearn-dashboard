@@ -2,13 +2,15 @@
 
   <div class="call-app">
     <div class="test-expert text-center mt-12">
-      <v-btn
-          class="mx-2 mt-12"
-          fab dark color="#2ECC71"
-          @click="initCall"
-      >
-        <v-icon dark>mdi-phone-in-talk</v-icon>
-      </v-btn>
+      <h3>Please wait for a call...</h3>
+      <h4>Your user ID - <b>2wZ*h5C5h$7i</b></h4>
+<!--      <v-btn-->
+<!--          class="mx-2 mt-12"-->
+<!--          fab dark color="#2ECC71"-->
+<!--          @click="initCall"-->
+<!--      >-->
+<!--        <v-icon dark>mdi-phone-in-talk</v-icon>-->
+<!--      </v-btn>-->
     </div>
 
     <div class="call-container">
