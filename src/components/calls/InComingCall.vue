@@ -9,7 +9,7 @@
               alt="">
         </div>
       </div>
-      <div class="details">Expert is calling</div>
+      <div class="details">User is calling</div>
       <ul class="actions">
         <li class="cancel-calling-btn">
 
